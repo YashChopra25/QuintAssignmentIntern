@@ -1,8 +1,9 @@
 "use client"
 import axios from 'axios'
+import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 const Signup = () => {
@@ -13,20 +14,18 @@ const Signup = () => {
         email: "", password: "", name: ""
     })
     
-    React.useEffect(() => {
-        (async () => {
-            const { data } = await axios.get('/api/getcookie')
-
-            if (data.status == 200) {
-                router.push('/product')
-            }
-            else {
-                setisLoading(true)
-
-            }
+ 
+    useEffect(() => {
+        const token = Cookies.get('token')
+        if(token){
+            router.push('/product')
+        }else{
+            setisLoading(true)
         }
-        )()
     }, [router])
+
+
+
 
     const SetUserData = e => {
         const { name, value } = e.target;

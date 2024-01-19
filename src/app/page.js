@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-
+import Cookies from 'js-cookie'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
@@ -13,21 +13,15 @@ const Login = () => {
     })
 
 
+   
     useEffect(() => {
-        (async () => {
-            const { data } = await axios.get('/api/getcookie')
-
-            if (data.status == 200) {
-                router.push('/product')
-            }
-            else {
-                setisLoading(true)
-
-            }
+        const token = Cookies.get('token')
+        if(token){
+            router.push('/product')
+        }else{
+            setisLoading(true)
         }
-        )()
     }, [router])
-
     const SetUserData = e => {
 
         const { name, value } = e.target;
@@ -66,7 +60,7 @@ const Login = () => {
             })
 
             getuser = await getuser.json()
-    
+
             if (!getuser.success) {
                 toast.dismiss();
                 toast.error(getuser.message, {

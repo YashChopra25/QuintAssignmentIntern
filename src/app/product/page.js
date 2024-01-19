@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import ProductCard from '../Components/ProductCard'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import Cookies from 'js-cookie'
 const Products = () => {
       const [data, setdata] = useState([])
     const [loading, setloading] = useState(true)
@@ -28,14 +29,10 @@ const Products = () => {
 
     const logout = async() => {
         console.log("called logout")
-        let list = await fetch("/api/deletecookie");
-        list = await list.json()
-        if(list.status==200){
-            router.push('/')
-        }
-        else{
-          console.log("error occured while login")
-        }
+        const token=    Cookies.get('token')
+        console.log(token)
+        Cookies.remove('token')
+        router.push('/')
         
     }
     return loading ? (
