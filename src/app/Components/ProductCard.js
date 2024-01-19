@@ -8,7 +8,7 @@ const ProductCard = ({ data }) => {
     description = description.substring(0, 100).concat('...')
   }
    return (
-    <Link href="#" className="group P-4 flex flex-col justify-evenly">
+    <div  className="group P-4 flex flex-col justify-evenly">
       <div class="img img-contain flex justify-center items-center">
         <Image
           src={image}
@@ -28,7 +28,7 @@ const ProductCard = ({ data }) => {
           to cart</button>
       </div>
       <ToastContainer />
-    </Link>
+    </div>
   )
 }
 export default ProductCard;

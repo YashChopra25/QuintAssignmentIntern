@@ -5,7 +5,7 @@ export async function GET({ req }) {
         const token = req.cookies.token;
 
         if (!token) {
-            console.log(token); // You might want to log this for debugging purposes
+            console.log("token"); // You might want to log this for debugging purposes
             return NextResponse.json({ message: "Token not found", status: 404 });
         }
 
