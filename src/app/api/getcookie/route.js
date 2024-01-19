@@ -1,16 +1,16 @@
-import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server';
-export async function GET() {
+
+export async function GET({ req }) {
     try {
-        const cookieStore = cookies()
-        const token = cookieStore.get("token");
-        var status = 200;
+        const token = req.cookies.token;
+
         if (!token) {
-            console.log(token)
-            status = 404
+            console.log(token); // You might want to log this for debugging purposes
+            return NextResponse.json({ message: "Token not found", status: 404 });
         }
-        return NextResponse.json({ messsage: "success", status })
+
+        return NextResponse.json({ message: "Success", status: 200 });
     } catch (error) {
-        return NextResponse.json({ messsage: null, status: 404 })
+        return NextResponse.json({ message: null, status: 404 });
     }
 }
